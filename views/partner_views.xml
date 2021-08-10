@@ -1,0 +1,28 @@
+<odoo>
+<data>
+  <record model="ir.ui.view" id="view_partner_form_umroh">
+    <field name="name">res.partner.form.inherit</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field name="arch" type="xml">
+    <xpath expr="//sheet/group" position="after">
+      <group string="Additional Information">
+        <group>
+          <field name="no_identitas"/>
+          <field name="jenis_kelamin"/>
+          <field name="nama_ayah"/>
+          <field name="nama_ibu"/>
+        </group>
+        <group>
+          <field name="tmp_lahir"/>
+          <field name="tgl_lahir"/>
+          <field name="gol_darah"/>
+          <field name="status_pernikahan"/>
+        </group>
+      </group>
+    </xpath>
+    </field>
+  </record>
+ 
+</data>
+</odoo>
