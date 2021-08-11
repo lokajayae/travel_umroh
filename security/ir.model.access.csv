@@ -1,2 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_travel_umroh_travel_umroh,travel_umroh.travel_umroh,model_travel_umroh_travel_umroh,base.group_user,1,1,1,1
+access_travel_package,access_travel_package,model_travel_package,base.group_user,1,1,1,1
+access_arline_line_package,access_arline_line_package,model_airline_line_package,base.group_user,1,1,1,1
+access_hotel_line_package,access_hotel_line_package,model_hotel_line_package,base.group_user,1,1,1,1
+access_participant_line_package,access_participant_line_package,model_participant_line_package,base.group_user,1,1,1,1
+access_schedule_line_package,access_schedule_line_package,model_schedule_line_package,base.group_user,1,1,1,1

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_user_travel_package" model="res.groups">
+      <field name="name">Travel Package / User</field>
+    </record>
+    <record id="group_manager_travel_package" model="res.groups">
+      <field name="name">Travel Package / Manager</field>
+      <field name="implied_ids" eval="[(4, ref('travel_umroh.group_user_travel_package'))]" />
+      <field name="users" eval="[(4, ref('base.user_root'))]" />
+    </record>
+</odoo>

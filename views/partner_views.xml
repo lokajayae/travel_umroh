@@ -8,21 +8,21 @@
     <xpath expr="//sheet/group" position="after">
       <group string="Additional Information">
         <group>
-          <field name="no_identitas"/>
-          <field name="jenis_kelamin"/>
-          <field name="nama_ayah"/>
-          <field name="nama_ibu"/>
+          <field name="identity_number"/>
+          <field name="gender"/>
+          <field name="father_name"/>
+          <field name="mother_name"/>
         </group>
         <group>
-          <field name="tmp_lahir"/>
-          <field name="tgl_lahir"/>
-          <field name="gol_darah"/>
-          <field name="status_pernikahan"/>
+          <field name="birth_place"/>
+          <field name="date_of_birth"/>
+          <field name="blood_type"/>
+          <field name="marital_status"/>
         </group>
       </group>
     </xpath>
     </field>
   </record>
- 
+
 </data>
 </odoo>

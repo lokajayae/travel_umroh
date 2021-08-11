@@ -3,7 +3,8 @@ from odoo.exceptions import UserError
 
 class NamaModel(models.Model):
   _inherit = 'res.partner'
-  identity_id = fields.Char(
+
+  identity_number = fields.Char(
     string="KTP Number"
   )
   father_name = fields.Char(
