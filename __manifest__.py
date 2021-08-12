@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'sale', 'sale_management', 'product'],
+    'depends': ['base', 'sale', 'sale_management', 'product', 'stock'],
 
     # always loaded
     'data': [
@@ -28,7 +28,8 @@
         'security/security.xml',
         'views/partner_views.xml',
         'views/templates.xml',
-        'views/package_views.xml'
+        'views/package_views.xml',
+        'views/sale_order_views.xml'
     ],
     # only loaded in demonstration mode
     'demo': [

@@ -84,7 +84,7 @@ class TravelPackage(models.Model):
     @api.model
     def create(self, vals) :
       vals['name'] = self.env['ir.sequence'].next_by_code('travel.package')
-      return super(travel_package, self).create(vals)
+      return super(TravelPackage, self).create(vals)
     
     def name_get(self):
       return [(this.id, this.name + "#" + " " + this.product_id.partner_ref) for this in self]
@@ -167,7 +167,7 @@ class ScheduleLinePackage(models.Model):
     _name = "schedule.line.package"
     
     travel_package_id = fields.Many2one(
-      comodel='travel.package', 
+      comodel_name='travel.package', 
       string='Travel Package', 
       ondelete='cascade'
     )

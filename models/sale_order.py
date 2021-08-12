@@ -2,61 +2,44 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
 class SaleOrder(models.Model):
-    _inherit = 'sale.order'
+  _inherit = 'sale.order'
 
-    travel_package_id = fields.Many2one(
-      comodel = 'travel.package', 
-      string='Travel Package',
-      domain=[('state', '=', 'confirm')]
-    )
-
-    hotel_line_ids = fields.One2many(
-        comodel_name='hotel.line',
-        inverse_name='package_id',
-        string='Related Hotels',
-    )
+  travel_package_id = fields.Many2one(
+    comodel_name = 'travel.package', 
+    string='Travel Package',
+    domain=[('state', '=', 'confirm')]
+  )
     
-    document_line = fields.One2many(
-      comodel_name = 'sale.dokumen.line', 
-      inverse_name = 'order_id', 
-      string='Document Lines'
-    )
-    passport_line = fields.One2many(
-      comodel_name = 'sale.passport.line', 
-      inverse_name = 'order_id', 
-      string='Passport Lines'
-    )
+  document_line = fields.One2many(
+    comodel_name = 'sale.document.line', 
+    inverse_name = 'order_id', 
+    string='Document Lines'
+  )
+  passport_line = fields.One2many(
+    comodel_name = 'sale.passport.line', 
+    inverse_name = 'order_id', 
+    string='Passport Lines'
+  )
 
-    @api.onchange('travel_package_id')
-    def set_order_line(self):
-      res = {}
-      if self.paket_perjalanan_id:
-        pp = self.paket_perjalanan_id
- 
-        ### Otomatis - Nilai di set otomatis dari method onchange product_id_change() ###
-        order = self.env['sale.order'].new({
-          'partner_id': self.partner_id.id,
-          'pricelist_id': self.pricelist_id.id,
-          'date_order': self.date_order
-        })
-        
-        line = self.env['sale.order.line'].new({'product_id': pp.product_id.id, 'order_id': order.id})
-        line.product_id_change()
-        vals = line._convert_to_write({name: line[name] for name in line._cache})
-        res['value'] = {'order_line': [vals]}
- 
-        ### Manual - Nilai di set secara manual ###
-        
-        # res['value'] = {
-        #     'order_line': [{
-        #         'product_id': pp.product_id.id,
-        #         'name':  pp.product_id.partner_ref,
-        #         'product_uom_qty': 1,
-        #         'product_uom': pp.product_id.uom_id.id,
-        #         'price_unit': pp.product_id.lst_price
-        #     }]
-        # }
-        return res
+  @api.onchange('travel_package_id')
+  def set_order_line(self):
+    if self.travel_package_id:
+      order = self.env['sale.order'].new({
+        'name' : self.name,
+        'partner_id': self.partner_id.id,
+        'partner_invoice_id' : self.partner_id.id,
+        'partner_shipping_id' : self.partner_id.id,
+        'pricelist_id': self.pricelist_id.id,
+        'company_id' : self.company_id.id,
+        'date_order': self.date_order
+      })
+      pp = self.travel_package_id
+      new_order_line = self.env['sale.order.line'].new({
+        'product_id': pp.product_id.id,
+        'name' : '',
+        'order_id': order.id,
+        'product_uom_qty' : 1
+      })
  
 class SaleDocumentLine(models.Model):
   _name = "sale.document.line"
@@ -111,5 +94,3 @@ class SalePassportLine(models.Model):
     string='Photo', 
     required=True
   )
-
-    

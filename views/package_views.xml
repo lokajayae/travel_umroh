@@ -24,7 +24,7 @@
       <field name="arch" type="xml">
         <form string="Form Paket Perjalanan">
           <header>
-            <button name="action_confirm" type="object" string="Confirm" states="draft" groups="travel_umroh.group_manager_travel-package" class="btn-primary"/>
+            <button name="action_confirm" type="object" string="Confirm" states="draft" class="btn-primary"/>
             <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
           </header>
           <sheet>
