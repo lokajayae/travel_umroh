@@ -29,7 +29,10 @@
         'views/partner_views.xml',
         'views/templates.xml',
         'views/package_views.xml',
-        'views/sale_order_views.xml'
+        'views/sale_order_views.xml',
+        'reports/sale_order_template.xml',
+        'reports/sale_invoice_template.xml',
+        'reports/sale_order_report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

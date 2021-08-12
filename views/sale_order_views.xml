@@ -48,26 +48,5 @@
         </notebook>
       </field>
     </record>
-
-    <!-- <report id="print_travel_document" 
-      string="Travel Document" 
-      model="stock.picking" 
-      name="travel.document" 
-      rml="travel_umroh/report/travel_document.rml" 
-      auto="False" 
-      menu="False" />
-
-    <record model="ir.ui.view" id="view_print_picking_form">
-      <field name="name">print.stock.picking.form</field>
-      <field name="model">stock.picking</field>
-      <field name="inherit_id" ref="stock.view_picking_form" />
-      <field name="arch" type="xml">
-        <button name="do_print_picking" position="replace" />
-        <button name="%(stock.action_report_delivery)d" position="replace">
-          <button name="%(cetak_surat_jalan)d" string="Cetak" type="action" state="done" class="btn-primary" />
-        </button>
-      </field>
-    </record> -->
-
   </data>
 </odoo>

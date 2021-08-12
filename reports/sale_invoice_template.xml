@@ -1,0 +1,92 @@
+<odoo>
+  <template id="sale_order_template">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="doc">
+        <t t-call="web.internal_layout">
+          <div class="page">
+            <h1 style="text-align:center">CUSTOMER INVOICES</h1>
+            <br></br>
+            <br></br>
+            <div class="row">
+              <div class="col-8">
+                <table>
+                  <tr>
+                    <td>Customer</td>
+                    <td class="p-2">:</td>
+                    <td>
+                      <t t-esc="doc.partner_id.name" />
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Address</td>
+                    <td class="p-2">:</td>
+                    <td>
+                      <t t-esc="doc.partner_id.street" />
+                      <t t-esc="doc.partner_id.city" />
+                      <t t-esc="doc.partner_id.zip" />
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Phone</td>
+                    <td class="p-2">:</td>
+                    <td>
+                      <t t-esc="doc.partner_id.phone" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+
+              <div class="col-4">
+                <table>
+                  <tr>
+                    <td>Number</td>
+                    <td class="p-2">:</td>
+                    <td>
+                      <t t-esc="doc.name" />
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Address</td>
+                    <td class="p-2">:</td>
+                    <td>
+                      <t t-esc="doc.date_order" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <br></br>
+            <br></br>
+            <div id="product-price">
+              <table class="table table-condensed">
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>UoM</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr t-foreach="doc.order_line" t-as="item">
+                    <td>
+                      <t t-esc="item.product_id.name" />
+                    </td>
+                    <td>
+                      <t t-esc="item.product_uom_qty" />
+                    </td>
+                    <td>
+                      <t t-esc="item.product_uom.name" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </t>
+      </t>
+    </t>
+  </template>
+</odoo>
