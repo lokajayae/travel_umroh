@@ -33,6 +33,7 @@
         'reports/sale_order_template.xml',
         'reports/sale_invoice_template.xml',
         'reports/sale_order_report.xml',
+        'reports/sale_invoice_report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

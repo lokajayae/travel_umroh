@@ -10,7 +10,12 @@ Sebuah modul untuk Odoo 14 untuk manajemen kelas yang didalamnya terdapat Mahasi
    * Mata Kuliah
 
 ## Known Bugs
+* Template Reporting Delivery Order masih belum sesuai dengan video demonstrasi
+* Template Reporting Customer Invoice masih belum sesuai dengan video demonstrasi
 
+## Difference with Demonstration Video
+* Mata uang menggunakan Euro
+*
 
 ## Prerequisite
 Oddo 14

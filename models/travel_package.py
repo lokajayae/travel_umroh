@@ -97,6 +97,23 @@ class TravelPackage(models.Model):
         else:
           r.quota_progress = 100.0 * len(r.participant_line) / r.quota
 
+    def update_participant(self) :
+      order_ids = self.env['sale.order'].search([('travel_package_id', '=', self.id), ('state', 'not in', ('draft', 'cancel'))])
+      print(order_ids)
+      if order_ids:
+        self.participant_line.unlink()
+        for order in order_ids:
+          for passport in order.passport_line:
+            print(passport.name)
+            self.participant_line.create({
+              'travel_package_id': self.id,
+              'partner_id': passport.partner_id.id,
+              'name': passport.name,
+              'order_id': order.id,
+              'gender': passport.partner_id.gender,
+              'room_type': passport.room_type,
+            })
+
 class AirlineLinePackage(models.Model):
   _name = "airline.line.package"
     
@@ -134,7 +151,25 @@ class ParticipantLinePackage(models.Model):
     partner_id = fields.Many2one(
       'res.partner', 
       string='Jamaah'
-    ) 
+    )
+    name = fields.Char(
+      string='Name in Passport'
+    )
+    order_id = fields.Many2one(
+        comodel_name='sale.order',
+        string='Sales Order',
+    )
+    gender = fields.Selection(
+      [('male', 'Male'),
+       ('female', 'Female')],
+      string='Gender'
+    )
+    room_type = fields.Selection(
+      [('d', 'Double'), 
+       ('t', 'Triple'), 
+       ('q', 'Quad')], 
+      string='Room Type'
+    )
 
 class HotelLinePackage(models.Model):
     _name = "hotel.line.package"

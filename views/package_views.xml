@@ -25,6 +25,7 @@
         <form string="Form Paket Perjalanan">
           <header>
             <button name="action_confirm" type="object" string="Confirm" states="draft" class="btn-primary"/>
+            <button name="update_participant" type="object" string="Update Jamaah" states="confirm" class="btn-primary"/>
             <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
           </header>
           <sheet>
@@ -68,7 +69,11 @@
               <page string="Jamaah Lines">
                 <field name="participant_line">
                   <tree editable="bottom">
+                    <field name="order_id" />
                     <field name="partner_id" />
+                    <field name="name" />
+                    <field name="gender" />
+                    <field name="room_type" />
                   </tree>
                 </field>
               </page>
