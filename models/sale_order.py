@@ -79,6 +79,10 @@ class SalePassportLine(models.Model):
     string='Name in Passport', 
     required=True
   )
+  issued = fields.Date(
+    string='Issued Date', 
+    required=True
+  )
   expiry = fields.Date(
     string='Date of Expiry', 
     required=True

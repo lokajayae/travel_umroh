@@ -1,4 +1,7 @@
+from io import BytesIO
 from odoo import models, fields, api
+import base64
+import xlsxwriter
 
 class TravelPackage(models.Model):
     _name = "travel.package"
@@ -77,6 +80,12 @@ class TravelPackage(models.Model):
       default='draft', 
       track_visibility='onchange'
     )
+    filename = fields.Char(
+      string='Filename'
+    )
+    data_file = fields.Binary(
+      string='Data file'
+    )
 
     def action_confirm(self):
       self.write({'state': 'confirm'})
@@ -113,6 +122,103 @@ class TravelPackage(models.Model):
               'gender': passport.partner_id.gender,
               'room_type': passport.room_type,
             })
+    
+    def print_xls_participant(self) :
+      # Membuat worksheet
+      file_name = "Daftar Jamaah - " + str(self.name) + ".xlsx"
+      file_data = BytesIO()
+      workbook = xlsxwriter.Workbook(file_data)
+      ws = workbook.add_worksheet("Daftar Jamaah")
+
+      # Menambah Style Worksheet
+      style = workbook.add_format({'left': 1, 'top': 1,'right':1,'bold': True,'fg_color': '#339966','font_color': 'white','align':'center'})
+      style.set_text_wrap()
+      style.set_align('vcenter')
+      style_bold = workbook.add_format({'left': 1, 'top': 1,'right':1,'bottom':1,'bold': True,'align':'center','num_format':'_(Rp* #,##0_);_(Rp* (#,##0);_(* "-"??_);_(@_)'})
+      style_bold_orange = workbook.add_format({'left': 1, 'top': 1,'right':1,'bold': True,'align':'center','fg_color': '#FF6600','font_color': 'white'})
+      style_no_bold = workbook.add_format({'left': 1,'right':1,'bottom':1, 'num_format':'_(Rp* #,##0_);_(Rp* (#,##0);_(* "-"??_);_(@_)'})
+      
+      # Configure Column Width
+      ws.set_column(0, 0, 10) # Column A
+      ws.set_column(1, 2, 15) # Column B - C
+      ws.set_column(3, 3, 30) # Column D
+      ws.set_column(4, 5, 15) # Column E - F
+      ws.set_column(6, 10, 20) # Column G - K
+      ws.set_column(11, 11, 30) # Column L
+
+      # Write Title
+      ws.write(1, 2, 'MANIFEST', style_bold)
+      ws.write(1, 3, self.name, style_no_bold)
+
+      # Write Header Jamaah
+      ws.write(3, 0, 'NUMBER', style_bold_orange)
+      ws.write(3, 1, 'TITLE', style_bold_orange)
+      ws.write(3, 2, 'GENDER', style_bold_orange)
+      ws.write(3, 3, 'FULL NAME', style_bold_orange)
+      ws.write(3, 4, 'BIRTH PLACE', style_bold_orange)
+      ws.write(3, 5, 'DATE OF BIRTH', style_bold_orange)
+      ws.write(3, 6, 'PASSPORT NUMBER', style_bold_orange)
+      ws.write(3, 7, 'PASSPOR ISSUED', style_bold_orange)
+      ws.write(3, 8, 'PASSPORT EXPIRED', style_bold_orange)
+      ws.write(3, 9, 'IMMIGRATION', style_bold_orange)
+      ws.write(3, 10, 'AGE', style_bold_orange)
+      ws.write(3, 11, 'NIK', style_bold_orange)
+      ws.write(3, 12, 'ORDER', style_bold_orange)
+      ws.write(3, 13, 'ROOM TYPE', style_bold_orange)
+      ws.write(3, 14, 'ROOM LEADER', style_bold_orange)
+      ws.write(3, 15, 'ROOM NUMBER', style_bold_orange)
+      ws.write(3, 16, 'ADDRESS', style_bold_orange)
+      
+      last_row = 4
+      jamaah_count = 1
+
+      # Write Data Jamaah
+      for participant in self.participant_line:
+        passport = self.env['sale.passport.line'].search([('partner_id', '=', participant.partner_id.id)])
+        ws.write(last_row, 0, str(jamaah_count), style_no_bold)
+        ws.write(last_row, 1, participant.partner_id.title.display_name, style_no_bold)
+        ws.write(last_row, 2, participant.partner_id.gender, style_no_bold)
+        ws.write(last_row, 3, participant.partner_id.name, style_no_bold)
+        ws.write(last_row, 4, participant.partner_id.birth_place, style_no_bold)
+        ws.write(last_row, 5, participant.partner_id.date_of_birth, style_no_bold)
+        ws.write(last_row, 6, str(passport.passport_number), style_no_bold)
+        ws.write(last_row, 7, participant.partner_id.city, style_no_bold)
+        ws.write(last_row, 8, passport.expiry, style_no_bold)
+        ws.write(last_row, 9, passport.issued, style_no_bold)
+        ws.write(last_row, 10, str(participant.partner_id.age), style_no_bold)
+        ws.write(last_row, 11, str(participant.partner_id.identity_number), style_no_bold)
+        last_row += 1
+        jamaah_count += 1
+
+      # Write Header Airline
+      
+      # Write Data Airline
+      
+      # Close Workbook
+      workbook.close()
+      out = base64.encodestring(file_data.getvalue())
+      self.write({
+        'data_file' : out,
+        "filename" : file_name
+      })
+
+      # base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+      # attachment_obj = self.env['ir.attachment']
+
+      # attachment_id = attachment_obj.create({
+      #   'name': file_name, 
+      #   'datas_fname': 'xlsx', 
+      #   'datas': out
+      # })
+
+      # download_url = '/web/content/' + str(attachment_id.id) + '?download=true'
+      
+      # return {
+      #   "type": "ir.actions.act_url",
+      #   "url": str(base_url) + str(download_url),
+      #   "target": "new",
+      # }
+
 
 class AirlineLinePackage(models.Model):
   _name = "airline.line.package"

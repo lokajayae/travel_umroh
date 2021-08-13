@@ -16,6 +16,7 @@
         <group>
           <field name="birth_place"/>
           <field name="date_of_birth"/>
+          <field name="age"/>
           <field name="blood_type"/>
           <field name="marital_status"/>
         </group>

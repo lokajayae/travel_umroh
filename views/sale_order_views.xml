@@ -30,6 +30,7 @@
                 <field name="passport_number" />
                 <field name="name" />
                 <field name="expiry" />
+                <field name="issued" />
                 <field name="room_type" />
                 <field name="photo" widget="image" />
               </tree>

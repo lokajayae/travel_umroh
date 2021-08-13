@@ -14,8 +14,8 @@ Sebuah modul untuk Odoo 14 untuk manajemen kelas yang didalamnya terdapat Mahasi
 * Template Reporting Customer Invoice masih belum sesuai dengan video demonstrasi
 
 ## Difference with Demonstration Video
-* Mata uang menggunakan Euro
-*
+* Mata uang menggunakan Euro bukan Rupiah
+* Tidak memasukkan kolom Mahram apda reporting Jamaah ke File Excel
 
 ## Prerequisite
 Oddo 14
