@@ -66,7 +66,8 @@
                   <tr>
                     <th>Product</th>
                     <th>Quantity</th>
-                    <th>UoM</th>
+                    <th>Price Unit</th>
+                    <th>subtotal</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -78,12 +79,29 @@
                       <t t-esc="item.product_uom_qty" />
                     </td>
                     <td>
-                      <t t-esc="item.product_uom.name" />
+                      <t t-esc="item.price_unit" />
+                    </td>
+                    <td>
+                      <t t-esc="item.price_subtotal"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">
+                      Total :
+                    </td>
+                    <td>
+                      <t t-esc="doc.amount_total"/>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
+
+            <div style="width:30%" class="border border-secondary pa-3">
+              <p>Mengetahui</p>
+              <div style="height:160px;'"></div>
+              <p>Administrator</p>
+          </div>
           </div>
         </t>
       </t>

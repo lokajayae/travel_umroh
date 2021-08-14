@@ -62,6 +62,13 @@
                     <td><t t-esc="item.product_uom_qty" /></td>
                     <td><t t-esc="item.product_uom.name" /></td>
                   </tr>
+                  <t t-if="0 >= order.product_id.product_tmpl_id.bom_count ">
+                    <tr>
+                        <td><t t-esc="order.product_id.name" /></td>
+                        <td><t t-esc="order.product_uom_qty" /> </td>
+                        <td>-</td>
+                    </tr>
+                  </t>
                 </tbody>
               </table>
               <div style="width:30%" class="border border-secondary pa-3">
