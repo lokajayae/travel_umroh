@@ -187,13 +187,34 @@ class TravelPackage(models.Model):
         ws.write(last_row, 9, passport.issued, style_no_bold)
         ws.write(last_row, 10, str(participant.partner_id.age), style_no_bold)
         ws.write(last_row, 11, str(participant.partner_id.identity_number), style_no_bold)
+        ws.write(last_row, 12, participant.order_id.name, style_no_bold)
+        ws.write(last_row, 13, self.get_room_type(participant.room_type), style_no_bold)
+        ws.write(last_row, 14, '-', style_no_bold)
+        ws.write(last_row, 15, '-', style_no_bold)
+        ws.write(last_row, 16, participant.partner_id.street, style_no_bold)
         last_row += 1
         jamaah_count += 1
 
+      last_row += 3
+      airline_count = 1
+
       # Write Header Airline
+      ws.write(last_row, 4, 'NUMBER', style_bold_orange)
+      ws.write(last_row, 5, 'AIRLINES', style_bold_orange)
+      ws.write(last_row, 6, 'DEPARTURE DATE', style_bold_orange)
+      ws.write(last_row, 7, 'DEPARTURE CITY', style_bold_orange)
+      ws.write(last_row, 8, 'ARRIVAL CITY', style_bold_orange)
       
+      last_row += 1
       # Write Data Airline
-      
+      for airline in self.airline_line :
+        ws.write(last_row, 4, str(airline_count), style_no_bold)
+        ws.write(last_row, 5, airline.name, style_no_bold)
+        ws.write(last_row, 6, airline.departure_date, style_no_bold)
+        ws.write(last_row, 7, airline.departure_city, style_no_bold)
+        ws.write(last_row, 8, airline.arrival_city, style_no_bold)
+        last_row += 1
+        airline_count += 1
       # Close Workbook
       workbook.close()
       out = base64.encodestring(file_data.getvalue())
@@ -218,7 +239,15 @@ class TravelPackage(models.Model):
       #   "url": str(base_url) + str(download_url),
       #   "target": "new",
       # }
+    
+    def get_room_type(self, room_type) :
+      rooms = {
+        'd' : 'Double', 
+        't' : 'Triple', 
+        'q' : 'Quad'
+      }
 
+      return rooms.get(room_type)
 
 class AirlineLinePackage(models.Model):
   _name = "airline.line.package"
