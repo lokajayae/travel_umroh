@@ -41,7 +41,7 @@
                   <tr>
                     <td>Address</td>
                     <td class="p-2">:</td>
-                    <td> <t t-esc="doc.date_order" /> </td>
+                    <td> <t t-esc="doc.partner_id.street" /> </td>
                   </tr>
                 </table>
               </div>
@@ -58,23 +58,16 @@
                 </thead>
                 <tbody>
                   <tr t-foreach="doc.order_line" t-as="item" >
-                    <td><t t-esc="item.product_id.name" /></td>
-                    <td><t t-esc="item.product_uom_qty" /></td>
-                    <td><t t-esc="item.product_uom.name" /></td>
+                      <td><t t-esc="item.product_id.name" /></td>
+                      <td><t t-esc="item.product_uom_qty" /></td>
+                      <td><t t-esc="item.product_uom.name" /></td>
                   </tr>
-                  <t t-if="0 >= item.product_id.product_tmpl_id.bom_count ">
-                    <tr>
-                        <td><t t-esc="order.product_id.name" /></td>
-                        <td><t t-esc="order.product_uom_qty" /> </td>
-                        <td>-</td>
-                    </tr>
-                  </t>
                 </tbody>
               </table>
               <div style="width:30%" class="border border-secondary pa-3">
-                <p>Mengetahui</p>
-                <div style="height:160px;'"></div>
-                <p>Administrator</p>
+                  <p>Mengetahui</p>
+                  <div style="height:160px;'"></div>
+                  <p>Administrator</p>
             </div>
             </div>
           </div>

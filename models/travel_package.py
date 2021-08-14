@@ -145,6 +145,7 @@ class TravelPackage(models.Model):
       ws.set_column(4, 5, 15) # Column E - F
       ws.set_column(6, 10, 20) # Column G - K
       ws.set_column(11, 11, 30) # Column L
+      ws.set_column(12, 16, 20) # Column L
 
       # Write Title
       ws.write(1, 2, 'MANIFEST', style_bold)
@@ -180,11 +181,11 @@ class TravelPackage(models.Model):
         ws.write(last_row, 2, participant.partner_id.gender, style_no_bold)
         ws.write(last_row, 3, participant.partner_id.name, style_no_bold)
         ws.write(last_row, 4, participant.partner_id.birth_place, style_no_bold)
-        ws.write(last_row, 5, participant.partner_id.date_of_birth, style_no_bold)
+        ws.write(last_row, 5, str(participant.partner_id.date_of_birth), style_no_bold)
         ws.write(last_row, 6, str(passport.passport_number), style_no_bold)
-        ws.write(last_row, 7, participant.partner_id.city, style_no_bold)
-        ws.write(last_row, 8, passport.expiry, style_no_bold)
-        ws.write(last_row, 9, passport.issued, style_no_bold)
+        ws.write(last_row, 7, str(passport.issued), style_no_bold)
+        ws.write(last_row, 8, str(passport.expiry), style_no_bold)
+        ws.write(last_row, 9, participant.partner_id.city, style_no_bold)
         ws.write(last_row, 10, str(participant.partner_id.age), style_no_bold)
         ws.write(last_row, 11, str(participant.partner_id.identity_number), style_no_bold)
         ws.write(last_row, 12, participant.order_id.name, style_no_bold)
@@ -209,8 +210,8 @@ class TravelPackage(models.Model):
       # Write Data Airline
       for airline in self.airline_line :
         ws.write(last_row, 4, str(airline_count), style_no_bold)
-        ws.write(last_row, 5, airline.name, style_no_bold)
-        ws.write(last_row, 6, airline.departure_date, style_no_bold)
+        ws.write(last_row, 5, airline.partner_id.name, style_no_bold)
+        ws.write(last_row, 6, str(airline.departure_date), style_no_bold)
         ws.write(last_row, 7, airline.departure_city, style_no_bold)
         ws.write(last_row, 8, airline.arrival_city, style_no_bold)
         last_row += 1
@@ -222,23 +223,6 @@ class TravelPackage(models.Model):
         'data_file' : out,
         "filename" : file_name
       })
-
-      # base_url = self.env['ir.config_parameter'].get_param('web.base.url')
-      # attachment_obj = self.env['ir.attachment']
-
-      # attachment_id = attachment_obj.create({
-      #   'name': file_name, 
-      #   'datas_fname': 'xlsx', 
-      #   'datas': out
-      # })
-
-      # download_url = '/web/content/' + str(attachment_id.id) + '?download=true'
-      
-      # return {
-      #   "type": "ir.actions.act_url",
-      #   "url": str(base_url) + str(download_url),
-      #   "target": "new",
-      # }
     
     def get_room_type(self, room_type) :
       rooms = {
