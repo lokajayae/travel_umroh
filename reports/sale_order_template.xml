@@ -64,6 +64,11 @@
                   </tr>
                 </tbody>
               </table>
+              <div style="width:30%" class="border border-secondary pa-3">
+                <p>Mengetahui</p>
+                <div style="height:160px;'"></div>
+                <p>Administrator</p>
+            </div>
             </div>
           </div>
         </t>
