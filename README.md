@@ -4,6 +4,7 @@ Sebuah modul untuk mengatur Travel Umroh dari pendaftaran paket perjalanan, pend
 
 ## Known Bugs
 * Masih tidak bisa mendapatkan Room Number dan Room Leaderuntuk reporting Jamaah
+* Kotak tanda tangan pada laporan masih tidak bisa ditempatkan ditengah
 
 ## Difference with Demonstration Video
 * Mata uang menggunakan Euro bukan Rupiah
